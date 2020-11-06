@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <title>AJAX/PHP/CURL/JSON examples</title>
+    <meta name="description" content="AJAX/PHP/CURL/JSON examples">
+    <meta name="author" content="Daniel Kirk">
+    
+    <style>
+        .mainTable {
+            border:1px solid black;
+            border-collapse:collapse;
+        }
+        th, .main {
+
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="apiTable">
+        <table class="mainTable">
+
+            <thead>
+                <tr>
+                    <th align="center">API Name</th>
+                    <th align="center">API Description</th>
+                    <th>
+                        
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="main">1. Search</td>
+                    <td class="main">
+                        Type a location and it will return the closest result.
+                        <br />
+                        <label for="searchInput">Search for: </label>
+                        <input type="text" id="searchInput" name="search" />
+                        
+                        <label for="selLanguageOne">Select Language: </label>
+                        <select id="selLanguageOne">
+                            <option value="en">English</option>
+                            <option value="fr">Francais</option>
+                            <option value="de">Deutsche</option>
+                        </select>
+                    </td>
+                    <td class="main"><button id="btn1">Submit</button></td>
+                </tr>
+
+                <tr>
+                    <td class="main">2. Post Code Search</td>
+                    <td class="main">
+                        Input a postcode and it will return the district, county, the full postcode and the country.
+                        <br />
+                        <label for="postcode">Postcode: </label>
+                        <input type="text" id="postcodeInput" name="search" />
+                    </td>
+                    <td class="main"><button id="btn2">Submit</button></td>
+                </tr>
+
+                <tr>
+                    <td class="main">3. Country Neighbours</td>
+                    <td class="main">
+                        Selects a country and returns information about three of their neighbouring countires.
+                        <br />
+                        <label for="selCountry">Select Country: </label>
+                        <select id="selCountry">
+                            <option value="3017382">France</option>
+                            <option value="2782113">Austria</option>
+                            <option value="2921044">Germany</option>
+                            <option value="2802361">Belgium</option>
+                            <option value="798544">Poland</option>
+                            <option value="2658434">Switzerland</option>
+                            <option value="3077311">Czech Republic</option>
+                        </select>
+                        <label for="selLanguageThree">Select Language: </label>
+                        <select id="selLanguageThree">
+                            <option value="en">English</option>
+                            <option value="fr">Francais</option>
+                            <option value="de">Deutsche</option>
+                        </select>
+                    </td>
+                    <td class="main"><button id="btn3">Submit</button></td>
+                </tr>
+                <tr class="main">
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td style="text-decoration:underline">
+                                    Search Results.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Location:
+                                </td>
+                                <td id="location"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Country:
+                                </td>
+                                <td id="country"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Country Code:
+                                </td>
+                                <td id="countryCode"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Population:
+                                </td>
+                                <td id="population"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Status:
+                                </td>
+                                <td id="status"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="main">
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td style="text-decoration:underline">
+                                    Postcode Results.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Postcode:
+                                </td>
+                                <td id="postcode"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    District:
+                                </td>
+                                <td id="districtPC"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    County:
+                                </td>
+                                <td id="countyPC"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Country:
+                                </td>
+                                <td id="countryPC"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Status:
+                                </td>
+                                <td id="statusPC"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="main">
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="text-decoration:underline">
+                                    Neighbour One.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Country:
+                                </td>
+                                <td id="countryN1"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Country Code:
+                                </td>
+                                <td id="countryCodeN1"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Population:
+                                </td>
+                                <td id="populationN1"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Latitude:
+                                </td>
+                                <td id="latitudeN1"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Longitude:
+                                </td>
+                                <td id="longitudeN1"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="text-decoration:underline">
+                                    Neighbour Two.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Country:
+                                </td>
+                                <td id="countryN2"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Country Code:
+                                </td>
+                                <td id="countryCodeN2"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Population:
+                                </td>
+                                <td id="populationN2"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Latitude:
+                                </td>
+                                <td id="latitudeN2"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Longitude:
+                                </td>
+                                <td id="longitudeN2"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="text-decoration:underline">
+                                    Neighbour Three.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Country:
+                                </td>
+                                <td id="countryN3"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Country Code:
+                                </td>
+                                <td id="countryCodeN3"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Population:
+                                </td>
+                                <td id="populationN3"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Latitude:
+                                </td>
+                                <td id="latitudeN3"></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Longitude:
+                                </td>
+                                <td id="longitudeN3"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script type="application/javascript" src="libs/js/jquery-2.2.3.min.js"></script>
+    <script type="application/javascript" src="libs/js/search.js"></script>
+    <script type="application/javascript" src="libs/js/postcode.js"></script>
+    <script type="application/javascript" src="libs/js/neighbours.js"></script>
+
+</body>
+</html>
